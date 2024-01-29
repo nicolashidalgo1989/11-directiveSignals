@@ -1,0 +1,33 @@
+<h1>Agregar producto</h1>
+<hr>
+<form [formGroup]="myForm">
+  <div class="row g-3 align-items-center mb-3">
+    <div class="col-auto">
+      <label for="">Nombre:</label>
+    </div>
+    <div class="col-auto">
+      <input type="text" class="form-control" formControlName="name">
+    </div>
+    <div class="col-auto">
+      <span customLabel
+            [color]="color"
+            [errors]="myForm.get('name')?.errors"
+      >
+            temporal
+      </span>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col">
+      <button (click)="changeColor()" class="btn btn-primary">
+        Cambiar color
+      </button>
+    </div>
+    <div class="col">
+      Color: {{ color }}
+    </div>
+    <div class="col" [ngStyle]="{backgroundColor: color}"></div>
+  </div>
+</form>
+
+<pre class="my-5"> {{ myForm.get('name')?.errors | json }} </pre>
