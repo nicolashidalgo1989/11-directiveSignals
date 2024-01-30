@@ -1,4 +1,4 @@
-import { Component, computed, signal } from '@angular/core';
+import { Component, computed, effect, signal } from '@angular/core';
 import { User } from '../../interfaces/users-request.interface';
 
 @Component({
@@ -6,6 +6,8 @@ import { User } from '../../interfaces/users-request.interface';
   styleUrl: './properties-page.component.css'
 })
 export class PropertiesPageComponent {
+
+  public counter = signal(10);
 
   public user = signal<User>({
     id: 1,
@@ -16,6 +18,19 @@ export class PropertiesPageComponent {
   });
 
   public fullName = computed( () => `${this.user().first_name} ${this.user().last_name}`)
+
+  public userChangedEffect = effect( () => {
+
+    console.log('user effect change triggered');
+
+    console.log( this.user().first_name, ' - ', this.counter() );
+
+
+  })
+
+  increaseBy(value: number){
+    this.counter.update( current => current + value)
+  }
 
   onFieldUpdated( field: keyof User, value: string) {
 
